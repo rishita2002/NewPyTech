@@ -8,15 +8,28 @@
 
 import asyncio
 
-async def example_async_function(name : str, age : int):
+async def intro(name : str, age : int):
     print("Hello World!")
-    await asyncio.sleep(2)
+    await asyncio.sleep(1)
     print(f"This is {name},  I am {age} now.")
-    await asyncio.sleep(2)
+    await asyncio.sleep(4)
     print("Byee, signing off!")
 
-# Event loop and run the asynchronous function
-asyncio.run(example_async_function("Rishita Ghosh",21)) 
+async def brief(college : str, degree : str, branch : str, semester : int, year : int):
+    await asyncio.sleep(2)
+    print(f"I am a student of {college}")
+    await asyncio.sleep(1)
+    print(f"I am pursuing {degree} in {branch}")
+    await asyncio.sleep(1)
+    print(f"Currently I am in {year}th year, {semester}th semester.")
+
+
+async def main():
+    task1 = intro("Rishita Ghosh", 21)
+    task2 = brief("GEC-R", "BTech", "CSE", 7, 4)
+    await asyncio.gather(task1, task2) # gather is a ayncio method to run task1 and task2 concurrently
+
+asyncio.run(main()) # event loop to run main
 # always needs to be called from the main block and not already running event loop enablling parallel execution
 
 #-------------------------------------------------------------------------------------------------------------------
@@ -27,9 +40,11 @@ asyncio.run(example_async_function("Rishita Ghosh",21))
 from pydantic import BaseModel
 
 class Person(BaseModel):
+
+    # attributes
     Name: str 
     Age: int
-    # something similar to python type hinting is done
+    # something similar to python type hinting
 
 # Example usage:
 person_data = {"Name": "Rishita", "Age": 21}
